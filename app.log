@@ -1,0 +1,8 @@
+2024-05-13 03:13:16 +0300 - INFO - Processing Transactions: Fatma transaction with amount -20, Fatma transaction with amount -30, Fatma transaction with amount -50, Fatma transaction with amount -100, Fatma transaction with amount -100, Ahmed transaction with amount -100...
+2024-05-13 03:13:16 +0300 - INFO - Fatma transaction with amount -20 processed successfully
+2024-05-13 03:13:16 +0300 - INFO - Fatma transaction with amount -30 processed successfully
+2024-05-13 03:13:16 +0300 - INFO - Fatma transaction with amount -50 processed successfully
+2024-05-13 03:13:16 +0300 - INFO - Fatma transaction with amount -100 processed successfully
+2024-05-13 03:13:16 +0300 - WARNING - Fatma has a zero balance
+2024-05-13 03:13:16 +0300 - ERROR - Fatma transaction with amount -100 failed: Insufficient balance
+2024-05-13 03:13:16 +0300 - ERROR - Ahmed transaction with amount -100 failed: Account does not exist
