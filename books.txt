@@ -1,8 +1,0 @@
-[
-  {
-    "title": "f",
-    "author": "gg",
-    "isbn": "67",
-    "count": 1
-  }
-]
