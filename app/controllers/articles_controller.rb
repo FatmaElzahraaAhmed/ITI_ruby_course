@@ -1,22 +1,24 @@
-
 class ArticlesController < ApplicationController
-
-  http_basic_authenticate_with name: "dhh", password: "secret", except: [:index, :show]
+  # http_basic_authenticate_with name: "merna", password: "secret", except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @articles = Article.all
+    @articles = policy_scope(Article)
   end
 
   def show
     @article = Article.find(params[:id])
+    authorize @article
   end
 
   def new
-    @article = Article.new
+    @article = current_user.articles.build
+    authorize @article
   end
 
   def create
-    @article = Article.new(article_params)
+    @article =  current_user.articles.build(article_params)
+    authorize @article
 
     if @article.save
       redirect_to @article
@@ -27,10 +29,12 @@ class ArticlesController < ApplicationController
 
   def edit
     @article = Article.find(params[:id])
+    authorize @article
   end
 
   def update
     @article = Article.find(params[:id])
+    authorize @article
 
     if @article.update(article_params)
       redirect_to @article
@@ -41,13 +45,20 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article = Article.find(params[:id])
+    authorize @article
     @article.destroy
-
     redirect_to root_path, status: :see_other
   end
 
+  def report
+    @article = Article.find(params[:id])
+    @article.report!
+    redirect_to root_path
+  end
+
+
   private
     def article_params
-      params.require(:article).permit(:title, :body, :status)
+      params.require(:article).permit(:title, :body, :status, :image)
     end
 end

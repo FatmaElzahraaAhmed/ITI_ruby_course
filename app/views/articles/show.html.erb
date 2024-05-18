@@ -1,17 +1,34 @@
 <h1><%= @article.title %></h1>
 
+<% if @article.image.attached? %>
+  <%= image_tag url_for(@article.image) %>
+<% end %>
+
 <p><%= @article.body %></p>
 
-<ul>
-  <li><%= link_to "Edit", edit_article_path(@article) %></li>
-  <li><%= link_to "Destroy", article_path(@article), data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?"
-                  } %></li>
-</ul>
+<% if policy(@article).edit? || policy(@article).destroy? %>
+  <ul>
+    <% if policy(@article).edit? %>
+      <li><%= link_to "Edit", edit_article_path(@article) %></li>
+    <% end %>
+    <% if policy(@article).destroy? %>
+      <li><%= link_to "Destroy", article_path(@article), data: {
+                      turbo_method: :delete,
+                      turbo_confirm: "Are you sure?"
+                    } %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<p>Reports: <%= @article.reports_count %></p> 
+<p>Status: <%= @article.status %></p> 
+
+<% if user_signed_in? && !@article.archived? %>
+  <%= button_to "Report", report_article_path(@article), method: :post %>
+<% end %>
 
 <h2>Comments</h2>
 <%= render @article.comments %>
 
-<h2>Add a Comment:</h2>
+<h2>Add a comment:</h2>
 <%= render 'comments/form' %>

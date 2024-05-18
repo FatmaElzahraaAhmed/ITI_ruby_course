@@ -1,6 +1,6 @@
 <h1>Articles</h1>
 
-Our blog has <%= Article.public_count %> articles and counting!
+<p>Our blog has <%= Article.public_count %> public articles and counting!</p>
 
 <ul>
   <% @articles.each do |article| %>
@@ -12,4 +12,11 @@ Our blog has <%= Article.public_count %> articles and counting!
   <% end %>
 </ul>
 
-<%= link_to "New Article", new_article_path %>
+<% if user_signed_in? %>
+  <%= link_to "New Article", new_article_path %> |
+  <%= current_user.email %> |
+  <%= link_to "Sign Out", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure you want to sign out?" } %>
+<% else %>
+  <%= link_to "Sign In", new_user_session_path %> |
+  <%= link_to "Sign Up", new_user_registration_path %>
+<% end %>
